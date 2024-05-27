@@ -1,74 +1,96 @@
 import pandas as pd
 import numpy as np
-from scipy.spatial import cKDTree
-from datetime import datetime
-import plotly.graph_objects as go
+from math import radians, sin, cos, sqrt, atan2
 import plotly.express as px
+import plotly.graph_objects as go
 
-def haversine(lon1, lat1, lon2, lat2):
-    R = 6371.0  # Earth radius in kilometers
-    lon1, lat1, lon2, lat2 = map(np.radians, [lon1, lat1, lon2, lat2])
+# Read the CSV file into a DataFrame
+df = pd.read_csv('sample_data.csv')
+
+# Display the DataFrame to understand its structure
+print(df)
+
+# Step 2: Implement the algorithm to identify vessel proximity events
+def haversine_distance(lat1, lon1, lat2, lon2):
+    # Convert latitude and longitude from degrees to radians
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+    
+    # Haversine formula
     dlon = lon2 - lon1
     dlat = lat2 - lat1
-    a = np.sin(dlat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2) ** 2
-    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
-    distance = R * c
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    distance = 6371 * c  # Earth radius in kilometers
     return distance
 
-def find_proximity_events(data, threshold_distance):
-    coordinates = data[['lat', 'lon']].values
-    mmsis = data['mmsi'].values
-    timestamps = data['timestamp'].values
-    tree = cKDTree(coordinates)
-    threshold_distance_radians = threshold_distance / 6371.0
-    pairs = tree.query_pairs(threshold_distance_radians)
-    proximity_events = []
-    for i, j in pairs:
-        if mmsis[i] != mmsis[j]:
-            proximity_events.append({
-                'mmsi': mmsis[i],
-                'vessel_proximity': mmsis[j],
-                'timestamp': timestamps[i]
-            })
-            proximity_events.append({
-                'mmsi': mmsis[j],
-                'vessel_proximity': mmsis[i],
-                'timestamp': timestamps[j]
-            })
-    return pd.DataFrame(proximity_events)
+def find_vessel_proximity(df, threshold_distance):
+    # Initialize an empty dictionary to store vessel proximity events
+    vessel_proximity = {}
 
-data = pd.read_csv('sample_data.csv')
-data['timestamp'] = pd.to_datetime(data['timestamp'])
-threshold_distance = 5.0
-proximity_events = find_proximity_events(data, threshold_distance)
+    # Group DataFrame by timestamp
+    grouped = df.groupby('timestamp')
 
-output_df = proximity_events.groupby('mmsi').agg({
-    'vessel_proximity': list,
-    'timestamp': 'first'
-}).reset_index()
+    # Iterate over groups
+    for timestamp, group in grouped:
+        # Initialize a list to store vessels in proximity
+        proximity_list = []
+        
+        # Iterate over each vessel's position
+        for i in range(len(group)):
+            current_mmsi = group.iloc[i]['mmsi']
+            current_lat = group.iloc[i]['lat']
+            current_lon = group.iloc[i]['lon']
+            
+            # Check proximity with other vessels in the group
+            for j in range(i + 1, len(group)):
+                other_mmsi = group.iloc[j]['mmsi']
+                other_lat = group.iloc[j]['lat']
+                other_lon = group.iloc[j]['lon']
+                
+                distance = haversine_distance(current_lat, current_lon, other_lat, other_lon)
+                if distance <= threshold_distance:
+                    proximity_list.append((current_mmsi, other_mmsi))
+        
+        # Add to the dictionary
+        vessel_proximity[timestamp] = proximity_list
+    
+    return vessel_proximity
 
-# Visualization
-fig = px.scatter(data, x='lon', y='lat', color='mmsi', hover_data=['mmsi', 'timestamp'])
+# Set the threshold distance in kilometers
+threshold_distance = 1
 
-for _, row in proximity_events.iterrows():
-    vessel_1 = data[data['mmsi'] == row['mmsi']].iloc[0]
-    vessel_2 = data[data['mmsi'] == row['vessel_proximity']].iloc[0]
-    fig.add_trace(go.Scattergeo(
-        lon=[vessel_1['lon'], vessel_2['lon']],
-        lat=[vessel_1['lat'], vessel_2['lat']],
-        mode='lines',
-        line=dict(width=1, color='red'),
-        opacity=0.5
-    ))
+# Find vessel proximity events
+proximity_events = find_vessel_proximity(df, threshold_distance)
 
-fig.update_layout(
-    title='Marine Vessel Proximity Events',
-    showlegend=False,
-    geo=dict(
-        scope='world',
-        projection_type='equirectangular',
-        showland=True,
-    )
-)
+# Step 3: Create a final DataFrame with the required columns
+final_df = pd.DataFrame(columns=['timestamp', 'vessel1', 'vessel2'])
 
+# Create an empty list to store DataFrame rows
+rows = []
+
+# Iterate over proximity events and add them to the final DataFrame
+for timestamp, proximity_list in proximity_events.items():
+    for vessel1, vessel2 in proximity_list:
+        rows.append({'timestamp': timestamp, 'vessel1': vessel1, 'vessel2': vessel2})
+
+# Concatenate the list of rows into a DataFrame
+final_df = pd.concat([final_df, pd.DataFrame(rows)], ignore_index=True)
+
+print(final_df.head(10))
+
+# Step 4: Visualize the results using Plotly
+
+# Count the number of proximity events per timestamp
+event_counts = final_df['timestamp'].value_counts().reset_index()
+event_counts.columns = ['timestamp', 'event_count']
+
+# Create a time series plot of proximity events
+fig = px.line(event_counts, x='timestamp', y='event_count', title='Number of Vessel Proximity Events Over Time')
+fig.update_layout(xaxis_title='Timestamp', yaxis_title='Number of Proximity Events')
+fig.show()
+
+# Create a scatter plot of vessel pairs in proximity
+fig = px.scatter(final_df, x='vessel1', y='vessel2', color='timestamp', title='Vessel Proximity Events',
+                 labels={'vessel1': 'Vessel 1 MMSI', 'vessel2': 'Vessel 2 MMSI'})
+fig.update_layout(xaxis_title='Vessel 1 MMSI', yaxis_title='Vessel 2 MMSI')
 fig.show()
