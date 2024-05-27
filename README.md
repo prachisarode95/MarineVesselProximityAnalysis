@@ -1,11 +1,11 @@
 
 # Marine Vessel Proximity Analysis
 
-This assignment project demonstrates how to calculate marine vessel proximity events using Pandas, Numpy, and Scipy libraries, utilizing the Haversine formula. It also showcases the Pandas vectorization method and visualizes the final result using Matplotlib or Plotly.
+This assignment project demonstrates how to calculate marine vessel proximity events using Pandas, Numpy, and Math libraries, utilizing the Haversine formula. It also showcases the Pandas vectorization method and visualizes the final result using Plotly.
 
 ## Project Structure
 
-- **data/sample_data.csv**: Contains the Vessel positions, Vessel IDs, and Timestamp data.
+- **data/sample_data.csv**: Contains the Vessel locations, Vessel IDs, and Timestamp data.
 - **src/Marine_Vessel_Proximity_Analysis.py and Marine_Vessel_Proximity_Analysis.ipynb**: Python scripts to run the analysis.
 - **README.md**: Project documentation.
 - **requirements.txt**: Python dependencies.
@@ -37,7 +37,9 @@ This assignment project demonstrates how to calculate marine vessel proximity ev
 
 ## Final Results
 
+
 ![Marine Vessel Proximity Plot](https://github.com/prachisarode95/MarineVesselProximityAnalysis/assets/60979131/c6f651b1-275d-466b-8118-6e3b81aeaeaa)
+
 
 
 
