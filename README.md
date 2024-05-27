@@ -1,22 +1,12 @@
 
 # Marine Vessel Proximity Analysis
 
-This project shows the calculataion on marine vessel proximity using Python and analyzes vessel proximity events using the Haversine formula and Pandas vectorization and visualize them using data visualization libraries.
+This project demonstrates the marine vessel proximity analysis using data science libraries. It analyzes vessel proximity events using the Haversine formula, Pandas vectorization method, and visualizes final results using Matplotlib or Plotly.
 
 ## Project Structure
 
-## Libraries Used
-- Pandas
-- Numpy
-- Plotly
-
-## Methodology Used
-- Haversine formula : to calculate distances between two individual vessels.
-- Pandas vectorization - To faster the data processing time.
-
-
-- **data/vessel_positions.csv**: Contains the vessel position data.
-- **src/vessel_proximity_analysis.py**: Main Python script for the analysis.
+- **data/sample_data.csv**: Contains the Vessel positions, Vessel IDs, and Timestamp data.
+- **src/Marine_Vessel_Proximity_Analysis.py and Marine_Vessel_Proximity_Analysis.ipynb**: Python scripts to run the analysis.
 - **README.md**: Project documentation.
 - **requirements.txt**: Python dependencies.
 
@@ -38,7 +28,7 @@ This project shows the calculataion on marine vessel proximity using Python and 
 3. Run the analysis script:
 
     ```bash
-    python src/vessel_proximity_analysis.py
+    python src/Marine_Vessel_Proximity_Analysis.py
     ```
 
 ## Explanation of the Code
@@ -49,10 +39,10 @@ This project shows the calculataion on marine vessel proximity using Python and 
     - `plotly`: For interactive visualization.
 
 2. **Load Data**:
-    - Load vessel positions from `sample_data.csv`.
+    - Load vessel positions from the `sample_data.csv`.
 
 3. **Haversine Formula**:
-    - Calculate distances between geographic coordinates using the Haversine formula.
+    - Calculate distances between geographic coordinates of vessels using the Haversine formula.
 
 4. **Calculate Pairwise Distances**:
     - Generate all possible pairs of vessel positions and calculate distances between them.
@@ -65,7 +55,9 @@ This project shows the calculataion on marine vessel proximity using Python and 
 
 ## Data
 - Ensure your data file (`sample_data.csv`) is in the `data` directory.
-- The CSV file should contain the following columns: `mmsi`, `timestamp`, `lat`, `lon`.
+
+## Final Results
+
 
 
 
