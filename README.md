@@ -54,11 +54,12 @@ This project demonstrates the marine vessel proximity analysis using data scienc
     - Visualize vessel positions and highlight proximity events using Plotly.
 
 ## Data
+
 - Ensure your data file (`sample_data.csv`) is in the `data` directory.
 
 ## Final Results
 
-
+![Marine Vessel Proximity Plot](https://github.com/prachisarode95/MarineVesselProximityAnalysis/assets/60979131/c6f651b1-275d-466b-8118-6e3b81aeaeaa)
 
 
 
