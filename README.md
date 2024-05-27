@@ -37,8 +37,11 @@ This assignment project demonstrates how to calculate marine vessel proximity ev
 
 ## Final Results
 
+![Number of Marine Vessel Proximity Events Over Time](https://github.com/prachisarode95/MarineVesselProximityAnalysis/assets/60979131/ead775a2-1192-4645-9a9d-51023d9c59ba)
 
-![Marine Vessel Proximity Plot](https://github.com/prachisarode95/MarineVesselProximityAnalysis/assets/60979131/c6f651b1-275d-466b-8118-6e3b81aeaeaa)
+![Marine Vessel Proximity Events](https://github.com/prachisarode95/MarineVesselProximityAnalysis/assets/60979131/77b3109f-b5cc-4ece-8062-da11137881c8)
+
+![Marine Vessel Proximity Map](https://github.com/prachisarode95/MarineVesselProximityAnalysis/assets/60979131/c6f651b1-275d-466b-8118-6e3b81aeaeaa)
 
 
 
