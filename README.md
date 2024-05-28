@@ -7,7 +7,7 @@ This assignment project demonstrates how to calculate marine vessel proximity ev
 
 - **data/sample_data.csv**: Contains the Vessel locations, Vessel IDs, and Timestamp data.
 - **src/Marine_Vessel_Proximity_Analysis.py and Marine_Vessel_Proximity_Analysis.ipynb**: Python scripts to run the analysis.
-- **README.md**: Project documentation.
+- **README.md**: Assignment documentation.
 - **requirements.txt**: Python dependencies.
 
 ## Setup Instructions
