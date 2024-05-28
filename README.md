@@ -31,10 +31,10 @@ This assignment project demonstrates how to calculate marine vessel proximity ev
     python src/Marine_Vessel_Proximity_Analysis.py
     ```
 
-## Code Explanation
-We'll explore the code to identify vessel proximity events and visualize the results.
 
-**Libraries Used:**
+# We'll explore the code to identify vessel proximity events and visualize the results.
+
+## Libraries Used
 1. **pandas (pd)**:
    - Used for reading CSV files and handling structured data.
 
@@ -50,7 +50,7 @@ We'll explore the code to identify vessel proximity events and visualize the res
 5. **plotly.graph_objects (go)**:
    - Used for enhancing plot customization.
 
-**Code Explanation:**
+## Code Explanation
 
 1. **Importing Libraries:**
    Started with importing Pandas for data handling, NumPy & Math for mathematical operations, and Plotly for visualizations.
@@ -73,12 +73,12 @@ We'll explore the code to identify vessel proximity events and visualize the res
 7. **Visualizing Results:**
    Created two plots using Plotly. The first plot shows the number of proximity events over time, and the second plot displays the pairs of vessels that were in proximity.
 
-**Plot Explanation:**
+## Plot Explanation
 
-### Time Series Plot:
+**Time Series Plot:**
 This plot shows the number of vessel proximity events over time. The x-axis represents the timestamp, and the y-axis represents the number of proximity events. It helps us see trends and patterns in vessel interactions over time.
 
-### Scatter Plot:
+**Scatter Plot:**
 This plot displays pairs of vessels that were in proximity. Each point represents a pair of vessels that were within the threshold distance of each other. The color indicates the timestamp, helping us understand when these events occurred.
 
 **Conclusion:**
