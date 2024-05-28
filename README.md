@@ -59,10 +59,10 @@ We'll explore the code to identify vessel proximity events and visualize the res
    Read the data from the 'sample_data.csv' file into a pandas DataFrame to understand its structure.
 
 3. **Haversine Distance Function:**
-   Defined the function to calculate the haversine distance, which is the shortest distance over the Earth's surface between two points, given their latitude and longitude.
+   Defined the `haversine_distance` function to calculate the haversine distance, which is the shortest distance over the Earth's surface between two points, given their latitude and longitude.
 
 4. **Finding Vessel Proximity Events:**
-   Defined a `find_vessel_proximity` function that identifies the pairs of vessels that are within a specified distance of each other. It groups the data by timestamp and calculates the distance between each pair of vessels.
+   Defined the `find_vessel_proximity` function to identify the pairs of vessels that are within a specified distance of each other. It groups the data by timestamp and calculates the distance between each pair of vessels.
 
 5. **Setting Threshold Distance:**
    Set a threshold distance of 1 kilometer to identify proximity events.
