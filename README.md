@@ -30,10 +30,6 @@ This assignment project demonstrates how to calculate marine vessel proximity ev
     ```bash
     python src/Marine_Vessel_Proximity_Analysis.py
     ```
-    
-## Data
-
-- Ensure your data file (`sample_data.csv`) is in the `data` directory.
 
 ## Final Results
 
